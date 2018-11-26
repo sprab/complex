@@ -5,7 +5,16 @@ services:
 
   redis:
     image: 'redis:latest'
-  server:
+  
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '4002:80'    
+
+  api:
     build:
       dockerfile: Dockerfile.dev
       context: ./server
@@ -36,3 +45,4 @@ services:
     volumes:
       - /app/node_modules
       - ./worker:/app      
+
